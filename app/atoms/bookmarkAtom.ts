@@ -15,10 +15,7 @@ export const bookmarksAtom = atomWithStorage<CountryDetail[]>(
   asyncStorage
 )
 
-// Atom to get the bookmark count
-export const bookmarkCountAtom = atom(
-  (get) => get(bookmarksAtom).length
-)
+
 
 // Function to load bookmarks from AsyncStorage
 export const loadBookmarks = async () => {

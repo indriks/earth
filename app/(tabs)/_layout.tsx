@@ -6,10 +6,10 @@ import { useAtom } from "jotai";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { bookmarkCountAtom } from "@/app/atoms/bookmarkAtom";
+import { bookmarksAtom } from "@/app/atoms/bookmarkAtom";
 
 export default function TabLayout() {
-  const [bookmarkCount] = useAtom(bookmarkCountAtom);
+  const [bookmarks] = useAtom(bookmarksAtom);
 
   return (
     <Tabs
@@ -66,7 +66,7 @@ export default function TabLayout() {
               Bookmarks
             </Text>
           ),
-          tabBarBadge: bookmarkCount > 0 ? bookmarkCount : undefined,
+          tabBarBadge: bookmarks.length > 0 ? bookmarks.length : undefined,
         }}
       />
       <Tabs.Screen
