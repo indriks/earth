@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
     overflow: "hidden",
+    backgroundColor: "rgba(17,30,68,0.2)",
   },
   searchIcon: {
     padding: 10,

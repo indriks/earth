@@ -128,11 +128,13 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: "contain",
     marginBottom: 20,
+    borderRadius: 10,
   },
   name: {
     fontSize: 28,
     fontWeight: "bold",
     marginBottom: 5,
+    lineHeight: 32,
   },
   officialName: {
     fontSize: 18,

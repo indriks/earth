@@ -61,6 +61,9 @@ export default function TabLayout() {
         options={{
           href: null,
           headerShown: true,
+          headerStyle: {
+            backgroundColor: "#070A1E",
+          },
           headerTitle: () => <CountryHeader />,
           headerLeft: () => <BackButton />,
         }}
@@ -72,7 +75,7 @@ export default function TabLayout() {
 function CountryHeader() {
   const { countryName } = useLocalSearchParams<{ countryName: string }>();
   return (
-    <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+    <Text style={{ fontSize: 18, fontWeight: "bold", color: "white" }}>
       {countryName || "Country"}
     </Text>
   );
@@ -84,7 +87,7 @@ function BackButton() {
     <Ionicons
       name="arrow-back"
       size={24}
-      color="#B2854B"
+      color="white"
       style={{ marginLeft: 10 }}
       onPress={() => router.back()}
     />
