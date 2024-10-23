@@ -18,17 +18,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Intro } from "@/components/Intro";
 import Flag from "@/components/Flag";
-
-interface Country {
-  name: {
-    common: string;
-    nativeName: { [key: string]: { common: string } };
-  };
-  translations: { [key: string]: { common: string } };
-  cca3: string;
-  cca2: string;
-  region: string;
-}
+import { Country } from "@/types/country";
 
 export default function HomeScreen() {
   const [countries, setCountries] = useState<Country[]>([]);

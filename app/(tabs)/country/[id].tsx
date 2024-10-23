@@ -13,23 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
 import { useAtom } from "jotai";
 import { bookmarksAtom, updateBookmarksAtom } from "@/app/atoms/bookmarkAtom";
-
-interface CountryDetail {
-  name: {
-    common: string;
-    official: string;
-  };
-  capital: string[];
-  region: string;
-  subregion: string;
-  population: number;
-  area: number;
-  flags: {
-    png: string;
-  };
-  languages: { [key: string]: string };
-  currencies: { [key: string]: { name: string; symbol: string } };
-}
+import { CountryDetail } from "@/types/country";
 
 export default function CountryDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
