@@ -136,7 +136,6 @@ export default function HomeScreen() {
       {showIntro ? (
         <Intro />
       ) : (
-        // <Flag countryCode="US" size={64} />
         <FlatList
           data={filteredCountries}
           keyExtractor={(item) => item.cca3}
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
     overflow: "hidden",
-    backgroundColor: "rgba(17,30,68,0.2)",
+    backgroundColor: "rgba(42,55,96,0.3)",
     borderWidth: 1,
     borderColor: "#111E44",
   },

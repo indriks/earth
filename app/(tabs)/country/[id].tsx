@@ -11,6 +11,8 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import { useAtom } from "jotai";
+import { bookmarksAtom, updateBookmarksAtom } from "@/app/atoms/bookmarkAtom";
 
 interface CountryDetail {
   name: {
@@ -34,6 +36,8 @@ export default function CountryDetailScreen() {
   const [country, setCountry] = useState<CountryDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [bookmarks] = useAtom(bookmarksAtom);
+  const [, updateBookmarks] = useAtom(updateBookmarksAtom);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const router = useRouter();
 
@@ -59,33 +63,29 @@ export default function CountryDetailScreen() {
       }
     }
 
-    async function checkBookmarkStatus() {
-      const bookmarks = await AsyncStorage.getItem("bookmarks");
-      const bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
+    function checkBookmarkStatus() {
       setIsBookmarked(
-        bookmarkList.some((bookmark: CountryDetail) => bookmark.cca3 === id)
+        bookmarks.some((bookmark: CountryDetail) => bookmark.cca3 === id)
       );
     }
 
     fetchCountryDetail();
     checkBookmarkStatus();
-  }, [id, router]);
+  }, [id, router, bookmarks]);
 
-  const toggleBookmark = async () => {
+  const toggleBookmark = () => {
     if (!country) return;
 
-    const bookmarks = await AsyncStorage.getItem("bookmarks");
-    let bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
-
+    let updatedBookmarks;
     if (isBookmarked) {
-      bookmarkList = bookmarkList.filter(
+      updatedBookmarks = bookmarks.filter(
         (bookmark: CountryDetail) => bookmark.cca3 !== country.cca3
       );
     } else {
-      bookmarkList.push(country);
+      updatedBookmarks = [...bookmarks, country];
     }
 
-    await AsyncStorage.setItem("bookmarks", JSON.stringify(bookmarkList));
+    updateBookmarks(updatedBookmarks);
     setIsBookmarked(!isBookmarked);
   };
 

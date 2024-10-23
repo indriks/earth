@@ -2,21 +2,36 @@ import { Tabs, useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Text } from "react-native";
+import { useAtom } from "jotai";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
+import { bookmarkCountAtom } from "@/app/atoms/bookmarkAtom";
 
 export default function TabLayout() {
+  const [bookmarkCount] = useAtom(bookmarkCountAtom);
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#B2854B",
-        tabBarInactiveTintColor: "#344164", // Dimmed color for inactive tabs
+        tabBarActiveTintColor: "#ED991B",
+        tabBarInactiveTintColor: "#A2ACCA",
         tabBarStyle: {
-          backgroundColor: "#070A1E", // Dark background for the tab bar
-          borderTopColor: "#141D37", // Slightly lighter border color
+          backgroundColor: "#1D2746",
+          borderTopColor: "#2A3760",
         },
         headerShown: false,
+        tabBarBadgeStyle: {
+          backgroundColor: "#ED991B",
+          color: "#1D2746",
+          borderWidth: 2,
+          borderColor: "#1D2746",
+          minWidth: 18,
+          height: 18,
+          fontSize: 12,
+          lineHeight: 14,
+          borderRadius: 9,
+        },
       }}
     >
       <Tabs.Screen
@@ -42,6 +57,16 @@ export default function TabLayout() {
               color={color}
             />
           ),
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "#1D2746",
+          },
+          headerTitle: () => (
+            <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
+              Bookmarks
+            </Text>
+          ),
+          tabBarBadge: bookmarkCount > 0 ? bookmarkCount : undefined,
         }}
       />
       <Tabs.Screen
@@ -62,7 +87,7 @@ export default function TabLayout() {
           href: null,
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#070A1E",
+            backgroundColor: "#1D2746",
           },
           headerTitle: () => <CountryHeader />,
           headerLeft: () => <BackButton />,

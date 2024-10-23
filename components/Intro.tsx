@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 26,
     fontWeight: "300",
-    color: "#344164",
+    color: "#A2ACCA",
     marginTop: 10,
+    opacity: 0.7,
   },
   titleContainer: {
     paddingHorizontal: 20,
