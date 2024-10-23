@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#2A3760",
+    borderBottomColor: "#202020",
   },
   flag: {
     width: 60,
