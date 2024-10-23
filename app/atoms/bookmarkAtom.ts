@@ -1,11 +1,19 @@
 import { atom } from 'jotai'
+import { atomWithStorage, createJSONStorage } from 'jotai/utils'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CountryDetail } from '@/types/country'
 
 const BOOKMARKS_STORAGE_KEY = 'bookmarks'
 
-// Initialize the atom with an empty array
-export const bookmarksAtom = atom<CountryDetail[]>([])
+// Custom storage adapter for AsyncStorage
+const asyncStorage = createJSONStorage<CountryDetail[]>(() => AsyncStorage)
+
+// Create a persisted atom using atomWithStorage
+export const bookmarksAtom = atomWithStorage<CountryDetail[]>(
+  BOOKMARKS_STORAGE_KEY,
+  [],
+  asyncStorage
+)
 
 // Atom to get the bookmark count
 export const bookmarkCountAtom = atom(
@@ -35,8 +43,7 @@ export const saveBookmarks = async (bookmarks: CountryDetail[]) => {
 // Atom for updating bookmarks
 export const updateBookmarksAtom = atom(
   null,
-  async (get, set, updatedBookmarks: CountryDetail[]) => {
+  (get, set, updatedBookmarks: CountryDetail[]) => {
     set(bookmarksAtom, updatedBookmarks)
-    await saveBookmarks(updatedBookmarks)
   }
 )
