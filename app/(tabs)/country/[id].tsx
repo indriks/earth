@@ -98,6 +98,7 @@ export default function CountryDetailScreen() {
           <TouchableOpacity
             onPress={toggleBookmark}
             style={styles.bookmarkButton}
+            testID="bookmark-button"
           >
             <Ionicons
               name={isBookmarked ? "bookmark" : "bookmark-outline"}
