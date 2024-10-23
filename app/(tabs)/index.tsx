@@ -159,6 +159,9 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(42,55,96,0.3)",
     borderWidth: 1,
     borderColor: "#111E44",
+    maxWidth: 600,
+    marginHorizontal: "auto",
+    width: "100%",
   },
   searchIcon: {
     padding: 10,
@@ -181,6 +184,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#030713",
     flexDirection: "row",
     padding: 20,
+    maxWidth: 600,
+    marginHorizontal: "auto",
+    width: "100%",
   },
   countryInfoContainer: {
     flex: 1,

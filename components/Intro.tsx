@@ -37,5 +37,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     paddingHorizontal: 20,
     marginTop: 20,
+    maxWidth: 550,
+    marginHorizontal: "auto",
   },
 });

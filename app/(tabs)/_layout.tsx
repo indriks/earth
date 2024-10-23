@@ -60,6 +60,7 @@ export default function TabLayout() {
           headerShown: true,
           headerStyle: {
             backgroundColor: "#1D2746",
+            borderBottomWidth: 0,
           },
           headerTitle: () => (
             <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
@@ -77,6 +78,7 @@ export default function TabLayout() {
           headerShown: true,
           headerStyle: {
             backgroundColor: "#1D2746",
+            borderBottomWidth: 0,
           },
           headerTitle: () => <CountryHeader />,
           headerLeft: () => <BackButton />,
