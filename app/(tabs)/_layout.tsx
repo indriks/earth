@@ -69,18 +69,7 @@ export default function TabLayout() {
           tabBarBadge: bookmarks.length > 0 ? bookmarks.length : undefined,
         }}
       />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "settings" : "settings-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
+
       <Tabs.Screen
         name="country/[id]"
         options={{
