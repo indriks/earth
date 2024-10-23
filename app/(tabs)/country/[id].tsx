@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
 
 interface CountryDetail {
   name: {
@@ -26,6 +34,7 @@ export default function CountryDetailScreen() {
   const [country, setCountry] = useState<CountryDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -50,8 +59,35 @@ export default function CountryDetailScreen() {
       }
     }
 
+    async function checkBookmarkStatus() {
+      const bookmarks = await AsyncStorage.getItem("bookmarks");
+      const bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
+      setIsBookmarked(
+        bookmarkList.some((bookmark: CountryDetail) => bookmark.cca3 === id)
+      );
+    }
+
     fetchCountryDetail();
+    checkBookmarkStatus();
   }, [id, router]);
+
+  const toggleBookmark = async () => {
+    if (!country) return;
+
+    const bookmarks = await AsyncStorage.getItem("bookmarks");
+    let bookmarkList = bookmarks ? JSON.parse(bookmarks) : [];
+
+    if (isBookmarked) {
+      bookmarkList = bookmarkList.filter(
+        (bookmark: CountryDetail) => bookmark.cca3 !== country.cca3
+      );
+    } else {
+      bookmarkList.push(country);
+    }
+
+    await AsyncStorage.setItem("bookmarks", JSON.stringify(bookmarkList));
+    setIsBookmarked(!isBookmarked);
+  };
 
   if (loading) {
     return (
@@ -73,10 +109,19 @@ export default function CountryDetailScreen() {
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Image source={{ uri: country.flags.png }} style={styles.flag} />
-        <ThemedText style={styles.name}>{country.name.common}</ThemedText>
-        <ThemedText style={styles.officialName}>
-          {country.name.official}
-        </ThemedText>
+        <View style={styles.headerContainer}>
+          <ThemedText style={styles.name}>{country.name.common}</ThemedText>
+          <TouchableOpacity
+            onPress={toggleBookmark}
+            style={styles.bookmarkButton}
+          >
+            <Ionicons
+              name={isBookmarked ? "bookmark" : "bookmark-outline"}
+              size={24}
+              color={isBookmarked ? "#FFD700" : "#888"}
+            />
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.infoContainer}>
           <InfoItem label="Capital" value={country.capital.join(", ")} />
@@ -157,5 +202,14 @@ const styles = StyleSheet.create({
   },
   infoValue: {
     flex: 2,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 5,
+  },
+  bookmarkButton: {
+    padding: 5,
   },
 });

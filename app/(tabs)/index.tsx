@@ -168,6 +168,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
     backgroundColor: "rgba(17,30,68,0.2)",
+    borderWidth: 1,
+    borderColor: "#111E44",
   },
   searchIcon: {
     padding: 10,
