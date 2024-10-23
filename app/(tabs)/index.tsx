@@ -107,7 +107,7 @@ export default function HomeScreen() {
         colors={["rgba(0,0,0,0)", "rgba(1,2,4,1)"]}
         style={styles.gradientOverlay}
       >
-        <BlurView intensity={30} style={styles.searchContainer}>
+        <BlurView intensity={35} style={styles.searchContainer}>
           <Ionicons
             name="search"
             size={20}
